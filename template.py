@@ -20,7 +20,7 @@ class Template(tk.Frame):
         main_height = height-output_window_height
         main_width = width - control_width
 
-        self.main = main_init(self, config, main_width, main_height)
+        self.main = main_init(self, config, main_width, main_height, self.output_panel)
 
         self.main.place(x=0, y=0, width=main_width, height=main_height)
         self.output_panel.place(x=0, y=main_height, width=width, height=main_height)
@@ -36,3 +36,9 @@ class Template(tk.Frame):
 
     def quit(self, event):
         self.parent.event_generate('<<quit_now>>')
+
+    def init_command(self, command):
+        def func(*args, **kwargs):
+            c = command(self.main, *args, **kwargs)
+            self.main.add_command(c)
+        self.output_panel.add_local(command.name, func)

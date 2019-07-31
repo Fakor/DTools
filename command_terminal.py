@@ -6,7 +6,7 @@ from tools import value_to_string
 def command(output):
     def base_call(func):
         def wrapper(*args, **kwargs):
-            output.add_command(func, *args, **kwargs)
+            output.print_command(func, *args, **kwargs)
             return func(*args, **kwargs)
         return wrapper
     return base_call
@@ -31,22 +31,10 @@ class CommandTerminal(tk.Frame):
 
         self.shell = code.InteractiveInterpreter(locals=loc)
 
-    def update_locals(self, new_locals):
-        self.shell = code.InteractiveInterpreter(locals=new_locals)
+    def print_command(self, command):
+        text = "{}(".format(command.name)
+        text += ', '.join(['{}={}'.format(str(key),value_to_string(value)) for key, value in command.get_kwargs().items() if value is not None])
 
-    def add_command(self, func, *args, **kwargs):
-        text = "{}(".format(func.__name__)
-        if len(args) > 0:
-            text = text + value_to_string(args[0])
-            for arg in args[1:]:
-                text = text + ',' + value_to_string(arg)
-        if len(kwargs) > 0:
-            first_done = False
-            for key, value in kwargs.items():
-                if not first_done and len(args) == 0:
-                    text = text + str(key) + '=' + value_to_string(value)
-                else:
-                    text = text + ',' + str(key) + '=' + value_to_string(value)
         text = text + ")"
 
         self.input.delete(0, tk.END)
@@ -61,4 +49,7 @@ class CommandTerminal(tk.Frame):
 
     def run_command(self, text):
         self.shell.runcode(text)
+
+    def add_local(self, name, value):
+        self.shell.locals[name] = value
 

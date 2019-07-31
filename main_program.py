@@ -3,9 +3,10 @@ import tkinter as tk
 
 class MainProgram(tk.Frame):
 
-    def __init__(self, parent, config, width, height):
+    def __init__(self, parent, config, width, height, output):
         tk.Frame.__init__(self, parent, width=width, height=height)
         self.config = config
+        self.output = output
 
         self.command_index = 0
         self.commands = []
@@ -19,8 +20,10 @@ class MainProgram(tk.Frame):
         for i in range(it):
             if self.command_index >= len(self.commands):
                 break
-            self.commands[self.command_index].run()
+            self.commands[self.command_index].do()
             self.command_index = self.command_index + 1
 
-    def add_command(self, command, *args, **kwargs):
-        self.commands.append(command(self, *args, **kwargs))
+    def add_command(self, command):
+        self.commands.append(command)
+        command.do()
+        self.output.print_command(command)
