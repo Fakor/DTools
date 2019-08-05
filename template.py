@@ -1,6 +1,7 @@
 import tkinter as tk
 
 import command_terminal
+from DTools.command_basics import command_from_meta
 
 
 class Template(tk.Frame):
@@ -42,3 +43,7 @@ class Template(tk.Frame):
             c = command(self.main, *args, **kwargs)
             self.main.add_command(c)
         self.output_panel.add_local(command.name, func)
+
+    def init_commands(self, commands):
+        for command_meta in commands:
+            self.init_command(command_from_meta(command_meta))
