@@ -1,6 +1,6 @@
 import tkinter as tk
 import code
-from tools import value_to_string
+from DTools.tools import value_to_string
 
 
 def command(output):
