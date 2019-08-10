@@ -10,13 +10,13 @@ class Template(tk.Frame):
         self.parent = parent
         self.parent.bind('<Control-c>', self.quit)
 
-        output_window_height = int(height/12)
+        output_window_height = int(height/25)
         self.output_panel = command_terminal.CommandTerminal(self, shell_locals)
         self.control_panel = tk.Frame(self)
         self.control_button_row = 0
         self.control_button_column = 0
 
-        control_width = int(width/10)
+        control_width = int(width/20)
 
         main_height = height-output_window_height
         main_width = width - control_width
