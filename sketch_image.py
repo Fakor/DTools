@@ -62,4 +62,4 @@ class SketchImage:
         return (x2 - width_half <= x <= x2 + width_half) and (y2 - height_half <= y <= y2 + height_half)
 
     def have_size(self):
-        return all([el!=0 for el in self.size])
+        return all([el>0 for el in self.size])
