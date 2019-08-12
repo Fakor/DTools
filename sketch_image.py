@@ -38,7 +38,8 @@ class SketchImage:
             return
         self.image = self.raw_image.resize(self.size, Image.NEAREST)
         self.image = self.filler.fill_image(self.image)
-        self.image = self.image.rotate(self.rotate)
+        self.image = self.image.rotate(self.rotate, expand=True)
+
         if self.mirror:
             self.image = ImageOps.mirror(self.image)
         self.photo_image = ImageTk.PhotoImage(self.image)
