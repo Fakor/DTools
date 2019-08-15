@@ -5,10 +5,12 @@ from DTools.command_basics import command_from_meta
 
 
 class Template(tk.Frame):
-    def __init__(self, parent, main_init, config, width, height, shell_locals):
+    def __init__(self, parent, main_init, config, position, size, shell_locals):
         tk.Frame.__init__(self, parent)
         self.parent = parent
         self.parent.bind('<Control-c>', self.quit)
+
+        width, height = size
 
         output_window_height = int(height/25)
         self.output_panel = command_terminal.CommandTerminal(self, shell_locals)
@@ -21,7 +23,7 @@ class Template(tk.Frame):
         main_height = height-output_window_height
         main_width = width - control_width
 
-        self.main = main_init(self, config, main_width, main_height, self.output_panel)
+        self.main = main_init(self, config, position, (main_width, main_height), self.output_panel)
 
         self.main.place(x=0, y=0, width=main_width, height=main_height)
         self.output_panel.place(x=0, y=main_height, width=width, height=main_height)
