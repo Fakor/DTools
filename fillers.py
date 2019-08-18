@@ -13,7 +13,7 @@ class ColorFiller:
         return image_replace_white(image, self.color)
 
     def get_arguments(self, command):
-        command.kwargs['color'] = self.color
+        command.color = self.color
 
 
 class ElasticImageFiller:
@@ -28,7 +28,7 @@ class ElasticImageFiller:
         return image_replace_elastic(image, self.elastic_image, self.meta['vertical'])
 
     def get_arguments(self, command):
-        command.kwargs['elastic_name'] = self.meta['name']
+        command.elastic_name = self.meta['name']
 
 
 class NoFiller:
