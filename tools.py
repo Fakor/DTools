@@ -9,6 +9,10 @@ def value_to_string(value):
     return str(value)
 
 
+def sum_points(*points):
+    return [sum(el) for el in zip(*points)]
+
+
 def image_replace_white(image, new):
     image = image.convert('RGBA')
     data = np.array(image)
